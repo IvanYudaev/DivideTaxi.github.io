@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список заказов</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f5f9; /* Изменен цвет фона */
+        color: #333;
+        display: flex;
+        flex-direction: column; /* Изменено */
+        align-items: center; /* Изменено */
+    }
+
+    .container {
+        max-width: 500px; /* Увеличен максимальный размер контейнера */
+        width: 100%;
+        padding: 20px;
+        background-color: #fff; /* Изменен цвет фона */
+        border: 2px solid #333;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
+        text-align: center;
+        margin-top: 20px; /* Добавлено */
+        position: relative; /* Добавлено */
+    }
+
+    button {
+        background-color: #333;
+        color: #fff;
+        padding: 15px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        background-color: #fff;
+        color: #333;
+    }
+
+    .back-arrow {
+        position: absolute; /* Добавлено */
+        top: 10px; /* Добавлено */
+        left: 10px; /* Добавлено */
+        font-size: 3em; /* Увеличен размер стрелочки в 1.5 раза */
+        color: #333; /* Добавлено */
+        cursor: pointer; /* Добавлено */
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Список заказов</h1>
+  <ul id="orders"></ul>
+  <div class="back-arrow" onclick="goBack()">&lt;</div> <!-- Добавлено -->
+</div>
+
+<script>
+  // Функция для возвращения на начальный экран
+  function goBack() {
+      window.location.href = "index.html";
+  }
+
+  // Функция для добавления новой поездки в список
+  function addOrderToHistory(order) {
+    var ordersList = document.getElementById("orders");
+    var li = document.createElement("li");
+    li.textContent = order;
+    ordersList.appendChild(li);
+  }
+
+  // Получаем параметры заказа из URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var name = urlParams.get('name');
+  var telegram = urlParams.get('telegram');
+  var pickup = urlParams.get('pickup');
+  var destination = urlParams.get('destination');
+
+  // Если есть параметры заказа, добавляем его в список
+  if (name && telegram && pickup && destination) {
+    var orderInfo = "Имя: " + name + ", Телеграм: " + telegram + ", Откуда: " + pickup + ", Куда: " + destination;
+    addOrderToHistory(orderInfo);
+  }
+</script>
+
+</body>
+</html>
